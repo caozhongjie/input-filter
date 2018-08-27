@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多个下拉框值过滤</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //下拉框过滤重复选项代码
+  function fn(){
+
+  	//(第一个注释掉的是在google下的，由于IE下option不支持hide和display属性,故使用remove())
+
+    //每次调用函数时将arr数组中的值清空
+    // arr=[];
+    // //遍历所有下拉框将已经选择值了的下拉框中的选择的option下标放入数组中
+    // for(var i=0;i<$('.sGoodId').length;i++){
+    //     if($('.sGoodId').eq(i).val()){
+    //
+    //         arr.push($('.sGoodId').eq(i).children(":selected").index());
+    //     }
+    //     //在此处将所有的下拉框的内容全部显示出来
+    //     for(var j=0;j<$('.sGoodId').eq(i).children().length;j++){
+    //         $('.sGoodId').eq(i).children().eq(j).show()
+    //     }
+    // }
+    //
+    // for(var j=0;j<$('.sGoodId').length;j++){
+    //     //遍历数组中的值
+    //     for(var i=0;i<arr.length;i++){
+    //         //如果下拉框中没有选择值则将数组中对应的option的下标处位置隐藏
+    //         if(!$('.sGoodId').eq(j).val()){
+    //             $(".sGoodId").eq(j).children().eq(arr[i]).hide();
+    //         }else{
+    //             //如果选择了值但是不与数组中的相等则对应的数组中的option位置隐藏
+    //             if($('.sGoodId').eq(j).children(":selected").index()!=arr[i]){
+    //                 $('.sGoodId').eq(j).children().eq(arr[i]).hide();
+    //             }
+    //         }
+    //     }
+    // }
+    arr={};
+    for(var i=0;i<$('.sGoodId').length;i++){
+      if($('.sGoodId').eq(i).val()){
+        arr[i]=$('.sGoodId').eq(i).val();
+      }
+    }
+    console.log(arr)
+    //将所有值重新覆盖
+    for(var i=0;i<$('.sGoodId').length;i++){
+      $('.sGoodId').eq(i).html(sgoodsId)
+    }
+    //将对应的下标以及值放在同样位置选中
+    for(var key in arr) {
+      // console.log(arr[key])
+      $('.sGoodId').eq(key).val(arr[key])
+    }
+
+    //过滤下拉框
+    for(var i=0;i<$('.sGoodId').length;i++){
+      for(var key in arr) {
+        console.log(i)
+        console.log(key)
+        if(i!=key){
+          for(var j=0;j<$('.sGoodId').eq(i).find("option").length;j++){
+            if($('.sGoodId').eq(i).find("option").eq(j).val()==arr[key]){
+              $('.sGoodId').eq(i).find("option").eq(j).remove()
+            }
+          }
+        }
+      }
+
+    }
+    for (var i = 1; i < $('.goodsT').length; i++) {
+      $('.increase').eq(1).html('<%- t("删除") %>');
+      $('.increase').eq(1).addClass("delete");
+      $('.increase').eq(1).unbind();
+      $('.increase').eq(1).removeClass("increase");
+      $('.copyGoods').eq(i).find('select option:first').attr('disabled',true);
+      $('.copyGoods').eq(i).find('select option:first').text('请选择机型');
+      $('.copyGoods').eq(i).find('select option:first').val('');
+
+    }
+
+  }
+
+</script>
